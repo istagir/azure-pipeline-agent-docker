@@ -1,0 +1,35 @@
+name: Publish to DockerHub
+
+on:
+  release:
+    types: [published]
+
+  workflow_dispatch:
+  
+jobs:
+  push:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Define variables
+        run: |
+            echo "IMAGE_NAME=azure-pipeline-agent" >> $GITHUB_ENV
+            echo "TAG=$(git describe --abbrev=0 --tags --always)" >> $GITHUB_ENV
+        
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+          
+      - name: Build and publish image
+        uses: docker/build-push-action@v2
+        with:
+          context: agent-docker
+          file: agent-docker/Dockerfile
+          push: true
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.TAG }}, ${{ secrets.DOCKER_HUB_USERNAME }}/${{ env.IMAGE_NAME }}:latest

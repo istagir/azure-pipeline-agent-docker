@@ -15,8 +15,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build and push Docker images
-        uses: docker/build-push-action@v2.4.0
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
         with:
           context: agent-docker
           file: agent-docker/Dockerfile
