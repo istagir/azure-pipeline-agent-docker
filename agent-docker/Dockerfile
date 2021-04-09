@@ -19,11 +19,13 @@ RUN apt-get update \
         netcat \
         libssl1.0
 
-WORKDIR /azp
+WORKDIR /azp/agent
 
 COPY ./install_agent.sh .
 RUN chmod +x install_agent.sh
 RUN ./install_agent.sh
+
+WORKDIR /azp
 
 COPY ./start.sh .
 RUN chmod +x start.sh
