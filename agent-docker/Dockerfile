@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 LABEL pipeline_agent_version = "2.186.1"
 
 # To make it easier for build and release pipelines to run apt-get,
