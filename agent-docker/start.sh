@@ -88,9 +88,7 @@ print_header "3. Configuring Azure Pipelines agent..."
   --pool "${AZP_POOL:-Default}" \
   --work "${AZP_WORK:-_work}" \
   --replace \
-#----------------------- edited --------------------------------
   --sslskipcertvalidation \
-#----------------------- edited --------------------------------
   --acceptTeeEula & wait $!
 
 print_header "4. Running Azure Pipelines agent..."
